@@ -32,7 +32,7 @@ Modern **Flutter** mimarisi (Clean Architecture prensipleri) kullanılarak geli�
 
 | Giriş Ekranı | Ana Ekran | Stok Detay |
 |--------------|-----------|------------|
-| ![Giriş](screenshots/login.png) | ![Ana Ekran](screenshots/home.png) | ![Detay](screenshots/detail.png) |
+| ![Giriş](screenshots/Girisekrani.jpeg) | ![Ana Ekran](screenshots/Anaekran.jpeg) | ![Detay](screenshots/Detayekrani.jpeg) | ![Stok](screenshots/Stokekrani.jpeg) |
 
 ## 🏗️ Proje Mimarisi (Code Quality)
 Proje, okunabilirliği ve bakımı kolaylaştırmak için aşağıdaki klasör yapısına ayrılmıştır:

@@ -3,7 +3,7 @@ import '../models/product.dart';
 import '../services/database_service.dart';
 //import '../models/stock_result.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import '../services/notification_service.dart'; // import added
+
 
 class BarcodeScanScreen extends StatefulWidget {
   final String marketId;
