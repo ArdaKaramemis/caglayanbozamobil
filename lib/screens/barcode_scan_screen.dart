@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/product.dart';
 import '../services/database_service.dart';
 //import '../models/stock_result.dart';
-import 'package:mobile_scanner/mobile_scanner.dart'; 
+import 'package:mobile_scanner/mobile_scanner.dart';
 import '../services/notification_service.dart'; // import added
 
 class BarcodeScanScreen extends StatefulWidget {
@@ -127,7 +127,7 @@ class _BarcodeScanScreenState extends State<BarcodeScanScreen> {
       );
 
       // 1. Veritabanına Bildirim Ekle (Kaldırıldı - Sadece kritik stokta gidecek)
-      // await _dbService.addNotification(...) 
+      // await _dbService.addNotification(...)
 
       // 2. Yerel Bildirim (Kaldırıldı - Sadece kritik stokta gidecek)
       // await NotificationService().showNotification(...)

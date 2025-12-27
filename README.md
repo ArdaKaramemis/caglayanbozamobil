@@ -1,8 +1,8 @@
 # Çağlayan Boza Mobil Stok Takip Sistemi 🥤📱
 
-**Ders:** Mobil Programlama / Bitirme Projesi
-**Geliştirici:** [Adınız Soyadınız]
-**Okul No:** [Numaranız]
+**Ders:** Mobil Programlama / Final Projesi
+**Geliştirici:** [Arda Karamemiş]
+**Okul No:** [24380101017]
 
 ## 🚀 Proje Hakkında
 Bu proje, **Çağlayan Boza** işletmesinin stok takibini dijitalleştirmek, anlık stok durumunu izlemek ve kritik stok seviyelerinde ilgili personelleri uyarmak amacıyla geliştirilmiş bir mobil uygulamadır.
@@ -28,11 +28,11 @@ Modern **Flutter** mimarisi (Clean Architecture prensipleri) kullanılarak geli�
     *   `flutter_local_notifications` (Bildirimler)
 
 ## 📸 Ekran Görüntüleri (Screenshots)
-*(Buraya uygulamanın ekran görüntülerini ekleyiniz. Proje kriterleri gereği en az 1 adet zorunludur.)*
+*(Lütfen ilgili ekran görüntülerini `screenshots/` klasörüne ekleyip aşağıdaki dosya adlarını güncelleyiniz)*
 
 | Giriş Ekranı | Ana Ekran | Stok Detay |
 |--------------|-----------|------------|
-| ![Giriş](https://via.placeholder.com/150?text=Giris+Ekrani) | ![Ana Ekran](https://via.placeholder.com/150?text=Ana+Ekran) | ![Detay](https://via.placeholder.com/150?text=Stok+Detay) |
+| ![Giriş](screenshots/login.png) | ![Ana Ekran](screenshots/home.png) | ![Detay](screenshots/detail.png) |
 
 ## 🏗️ Proje Mimarisi (Code Quality)
 Proje, okunabilirliği ve bakımı kolaylaştırmak için aşağıdaki klasör yapısına ayrılmıştır:

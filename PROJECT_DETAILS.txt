@@ -88,6 +88,11 @@ E. /android/ (Android Konfigürasyonu)
 5.  **Güvenlik:**
     *   Firestore kuralları güncellendi. Kullanıcıların sadece okuma/yazma yetkisine sahip olduğu, veritabanını silemediği bir yapı kuruldu.
     *   *Not:* Bu kuralları Firebase Console'a işlemeniz gerekmektedir.
+6.  **Yatay Mod (Landscape) Desteği:**
+    *   Uygulama artık telefon yan çevrildiğinde (Landscape) bozulmuyor.
+    *   Giriş ekranında logo küçülüyor, form sığıyor.
+    *   Market detay ekranında üst bilgi alanı (Harita vb.) kaydırılabilir (NestedScrollView) hale getirildi, böylece liste rahatça görünüyor.
+
 
 5. NASIL DERLENİR? (BUILD)
 --------------------------

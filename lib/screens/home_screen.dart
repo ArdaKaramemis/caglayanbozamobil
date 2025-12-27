@@ -2,23 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart'; 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart'; // import added
 import 'package:caglayanbozamobil/services/auth_service.dart';
-import 'package:caglayanbozamobil/services/auth_service.dart';
 import 'package:caglayanbozamobil/services/database_service.dart';
-import 'package:caglayanbozamobil/services/notification_service.dart'; // import added
+import 'package:caglayanbozamobil/services/notification_service.dart';
 
 import 'package:caglayanbozamobil/models/app_user.dart';
 import 'package:caglayanbozamobil/models/market.dart';
 import 'package:caglayanbozamobil/screens/add_batch_screen.dart';
-import 'package:caglayanbozamobil/screens/market_detail_screen.dart'; // DÜZELTİLDİ: market_detail_screen.dart
-
-
-// MarketStock modelini güncelliyoruz (marketId kaldırıldı)
-class MarketStock {
-  final String marketName;
-  final Map<String, int> productQuantities; // <Ürün Adı, Kalan Miktar>
-
-  MarketStock({required this.marketName, required this.productQuantities});
-}
+import 'package:caglayanbozamobil/screens/market_detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
