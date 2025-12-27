@@ -28,7 +28,7 @@ Modern **Flutter** mimarisi (Clean Architecture prensipleri) kullanılarak geli�
     *   `flutter_local_notifications` (Bildirimler)
 
 ## 📸 Ekran Görüntüleri (Screenshots)
-*(Lütfen ilgili ekran görüntülerini `screenshots/` klasörüne ekleyip aşağıdaki dosya adlarını güncelleyiniz)*
+
 
 | Giriş Ekranı | Ana Ekran | Stok Detay |
 |--------------|-----------|------------|

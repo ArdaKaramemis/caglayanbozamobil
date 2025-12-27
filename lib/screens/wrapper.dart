@@ -1,9 +1,9 @@
 import 'package:caglayanbozamobil/services/auth_service.dart';
-import 'package:caglayanbozamobil/services/notification_service.dart'; // import added
+//import 'package:caglayanbozamobil/services/notification_service.dart'; // import added
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'auth_screen.dart'; 
-import 'home_screen.dart'; 
+import 'auth_screen.dart';
+import 'home_screen.dart';
 
 class Wrapper extends StatefulWidget {
   const Wrapper({super.key});
@@ -20,7 +20,7 @@ class _WrapperState extends State<Wrapper> {
 
   @override
   Widget build(BuildContext context) {
-    final auth = AuthService(); 
+    final auth = AuthService();
 
     return StreamBuilder<User?>(
       stream: auth.user,
