@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "656929663254",
+    "project_id": "caglayanbozaapp",
+    "storage_bucket": "caglayanbozaapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:656929663254:android:0149c2339d145910f20837",
+        "android_client_info": {
+          "package_name": "com.example.caglayanbozamobil"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChvB64dHCljeuNIag6wgKvgkzP0XSeARI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

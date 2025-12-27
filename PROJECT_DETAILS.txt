@@ -1,0 +1,97 @@
+ÇAĞLAYAN BOZA MOBİL - PROJE DETAY DÖKÜMANI
+==============================================
+
+Tarih: 19.12.2025
+Konu: Proje Mimarisi, Kod Yapısı ve Yapılan Güncellemeler Hakkında Detaylı Rapor
+
+1. PROJE ÖZETİ
+--------------
+Bu proje, Çağlayan Boza işletmesi için geliştirilmiş, mobil tabanlı bir stok takip ve yönetim sistemidir. Flutter (Frontend) ve Firebase (Backend) teknolojileri kullanılarak geliştirilmiştir. Uygulama, marketler bazında ürün stoklarını (Parti/Batch bazlı) takip eder, barkod ile hızlı stok düşümü sağlar ve kritik stok seviyelerinde ilgili personeli uyarır.
+
+2. TEKNOLOJİ YIĞINI (TECH STACK)
+--------------------------------
+*   **Yazılım Dili:** Dart (Flutter Framework)
+*   **Veritabanı:** Google Firebase Firestore (NoSQL)
+*   **Kimlik Doğrulama:** Firebase Authentication (E-posta/Şifre)
+*   **Bildirimler:** Flutter Local Notifications (Yerel) + Firestore Listeners (Uzak Tetikleme)
+*   **Kamera/Barkod:** mobile_scanner paketi
+*   **Harita:** google_maps_flutter
+
+3. DOSYA VE KLASÖR YAPISI
+-------------------------
+
+A. /lib/main.dart (Giriş Noktası)
+---------------------------------
+*   Uygulamanın başlangıç noktasıdır.
+*   Firebase ve Flutter Local Notifications başlatılır.
+*   Tema ayarları (Renkler, Fontlar) burada yapılır.
+*   `Wrapper` katmanı ile kullanıcının giriş yapıp yapmadığı kontrol edilir ve ona göre `LoginScreen` veya `HomeScreen`'e yönlendirilir.
+
+B. /lib/models/ (Veri Modelleri)
+--------------------------------
+Veritabanındaki verilerin uygulama içinde nesne olarak kullanılmasını sağlar.
+*   `app_user.dart`: Kullanıcı bilgilerini (isim, rol, yetki, atandığı market) tutar. `isManager` ve `canDeduct` gibi getter metodları ile yetki kontrolü kolaylaştırılır.
+*   `product.dart`: Ürün tanımları (isim, barkod, raf ömrü, resim yolu).
+*   `market.dart`: Market bilgileri (isim, konum/koordinat).
+*   `batch.dart`: Stok partisi. En kritik modeldir. Üretim tarihi (ÜRT), Son Kullanma Tarihi (SKT), Başlangıç Adedi ve *Mevcut Adet* bilgisini tutar.
+*   `stock_result.dart`: Stok düşüm işlemlerinin sonucunu (Başarılı, Yetersiz Stok, Hata vb.) detaylı döndürmek için kullanılan yardımcı sınıf.
+
+C. /lib/services/ (Servis Katmanı)
+----------------------------------
+Tüm mantıksal işlemler ve veritabanı bağlantıları buradadır.
+*   `auth_service.dart`: Giriş yapma (signIn), Çıkış yapma (signOut) ve mevcut kullanıcıyı dinleme işlemleri.
+*   `database_service.dart`:
+    *   **Stok Düşüm Mantığı Kindar (decreaseStockByProduct):** En karmaşık fonksiyondur. FIFO (İlk Giren İlk Çıkar) mantığıyla, en yakın SKT'li partiden başlayarak stok düşer.
+    *   *Son Güncelleme:* Döngü içinde hatalı bildirim atması engellendi. Artık marketin toplam stoğunu hesaplayıp, sadece işlem bitiminde ve stok kritiğe (<=10) düştüyse bildirim tetikliyor.
+    *   **Bildirim Ekleme (addNotification):** Veritabanına herkesin görebileceği bir bildirim kaydı atar.
+*   `notification_service.dart`:
+    *   Arka planda çalışarak Firestore'a düşen yeni bildirimleri dinler.
+    *   *Son Güncelleme:* Eski bildirimlerin tekrar gelmesini önlemek için "stock_removed" (her satış) tipi bildirimleri filtreler. Sadece 5 dakika içindeki yeni bildirimleri gösterir.
+
+D. /lib/screens/ (Ekranlar)
+---------------------------
+*   `wrapper.dart`: Kullanıcı oturum durumuna göre yönlendirme yapan ara katman.
+*   `login_screen.dart`: Kullanıcı adı/şifre girişi. Hatalı girişlerde uyarı verir.
+*   `home_screen.dart` (Ana Ekran):
+    *   Kullanıcının yetkisine göre marketleri listeler.
+    *   Yöneticiler için "Stok Ekle" butonu gösterir.
+    *   Alt kısımda (Footer) web sitesi ve Instagram linkleri bulunur.
+    *   *Düzeltme:* Alt footer'ın navigasyon bar altında kalmaması için `padding` eklendi.
+*   `market_detail_screen.dart` (Market Detayı):
+    *   Seçilen marketin stoklarını listeler.
+    *   Ürünleri gruplar (Örn: 5 farklı parti Boza 1L varsa, toplamını gösterir).
+    *   1 Litre ürünleri listenin en üstüne taşır.
+    *   ÜRT ve SKT tarihlerini detaylı gösterir.
+    *   *Düzeltme:* Liste sonunun kesilmemesi için `bottom padding: 100` eklendi. Barkod ekranına Market İsmini parametre olarak geçirir.
+*   `barcode_scan_screen.dart` (Barkod/Kamera):
+    *   Kamerayla veya elle girilen barkodu arar.
+    *   Stoktan düşüm işlemini başlatır.
+    *   *Düzeltme:* Bildirimlerde market ID'si yerine Market İsmi göstermesi sağlandı. Her satışta bildirim atma özelliği kapatıldı (kullanıcı isteği).
+*   `add_batch_screen.dart`: Yeni stok girişi (Sadece Yöneticiler). Market ve Ürün seçerek sisteme yeni parti ekler.
+
+E. /android/ (Android Konfigürasyonu)
+-------------------------------------
+*   `AndroidManifest.xml`: Kamera, İnternet ve Titreşim izinleri tanımlandı.
+*   `build.gradle.kts`: Uygulama ID'si, Versiyon kodları ve imzalama (Signing) ayarları yapıldı.
+*   `key.properties` & `upload-keystore.jks`: Uygulamanın Google Play Store için imzalanmasını sağlayan güvenlik dosyaları.
+
+4. YAPILAN SON İYİLEŞTİRMELER (ÖZET)
+------------------------------------
+1.  **Bildirim Kirliliği Önlendi:**
+    *   Eskiden: Her ürün satışında tüm telefonlara "Stok Çıkışı" bildirimi gidiyordu.
+    *   Yeni: Sadece stok 10 adedin altına indiğinde "Kritik Stok" uyarısı gidiyor.
+2.  **Eski Bildirim Sorunu:** Çıkış-Giriş yapıldığında eski bildirimlerin tekrar ekrana gelmesi engellendi (5 dk zaman filtresi).
+3.  **İsimlendirme Düzeltmesi:** Bildirimlerde "Market ID (u0NN...)" yerine "Çağlayan Market" yazması sağlandı.
+4.  **UI (Arayüz) Hataları:**
+    *   Listelerin en altındaki ürünlerin telefonun tuşları altında kalması engellendi.
+    *   Bildirim metinlerinin "..." şeklinde kesilmesi engellendi (BigText stili).
+5.  **Güvenlik:**
+    *   Firestore kuralları güncellendi. Kullanıcıların sadece okuma/yazma yetkisine sahip olduğu, veritabanını silemediği bir yapı kuruldu.
+    *   *Not:* Bu kuralları Firebase Console'a işlemeniz gerekmektedir.
+
+5. NASIL DERLENİR? (BUILD)
+--------------------------
+*   APK (Direkt Kurulum): `flutter build apk --release` -> Çıktı: `CAGLAYAN_BOZA_MOBIL.apk`
+*   AAB (Play Store): `flutter build appbundle --release` -> Çıktı: `app-release.aab`
+
+Dosya Sonu.
